@@ -40,7 +40,6 @@ class Example(QMainWindow):
         self.x = random.randint(50, SCREEN_SIZE[0] - self.size)
         self.y = random.randint(50, SCREEN_SIZE[1] - self.size)
 
-        # Случайный цвет для окружности
         self.color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
         self.flag = True
