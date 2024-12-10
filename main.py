@@ -2,39 +2,46 @@ import sys
 import random
 from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget
 from PyQt6.QtGui import QPainter, QColor
-from UI import Ui_MainWindow
 
 SCREEN_SIZE = [680, 480]
 
 
-class Example(QMainWindow, Ui_MainWindow):
+class Ui_MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setupUi(self)
         self.setWindowTitle('Супрематизм')
 
-        self.figure = 'circle'
-        self.size = random.randint(10, 100)
-        self.color = QColor(255, 255, 0)
-        self.coords = []
-        self.flag = False
-
         self.pushButton = QPushButton('Добавить окружность', self)
-        self.pushButton.clicked.connect(self.draw)
 
         layout = QVBoxLayout()
         layout.addStretch(1)
         layout.addWidget(self.pushButton)
 
-        central_widget = QWidget(self)
-        central_widget.setLayout(layout)
+        self.setLayout(layout)
 
-        self.setCentralWidget(central_widget)
+
+class Example(QMainWindow):
+    def __init__(self):
+        super().__init__()
+
+        self.ui = Ui_MainWindow()
+        self.setCentralWidget(self.ui)
+
+        self.resize(680, 480)
+
+        self.size = random.randint(10, 100)
+        self.coords = []
+        self.flag = False
+
+        self.ui.pushButton.clicked.connect(self.draw)
 
     def draw(self):
         self.size = random.randint(10, 100)
         self.x = random.randint(50, SCREEN_SIZE[0] - self.size)
         self.y = random.randint(50, SCREEN_SIZE[1] - self.size)
+
+        # Случайный цвет для окружности
+        self.color = QColor(random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
 
         self.flag = True
         self.update()
